@@ -7,6 +7,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
+#---------------------------------------------01 - Dados e Visualização--------------------------------------
+
 # Carregando o arquivo csv
 notas = pd.read_csv("C:/Users/mathe/OneDrive/Área de Trabalho/Alura/05 - Formação Ciência de Dados/00 - DS Primeiros Passos/data/ratings.csv")
 
@@ -51,5 +53,50 @@ plt.show()
 
 notas.nota.describe()
 
+# Plotando boxsplot 
+
 sns.boxplot(notas.nota)
+plt.show()
+
+
+#--------------------------------------------------------02 - Análise Exploratória (EDA)----------------------------
+
+# Salvando nova arquivo
+
+filmes = pd.read_csv("C:/Users/mathe/OneDrive/Área de Trabalho/Alura/05 - Formação Ciência de Dados/00 - DS Primeiros Passos/data/movies.csv")
+filmes.columns = ["filmeId", "titulo", "generos"]
+filmes.head()
+
+# Selecionando todas as avaliações do filmeId 1
+
+notas.query("filmeId == 1")
+
+# Selecionando todas as avaliacoes do filmeId 1 e realizando a média dos valores
+
+notas.query("filmeId == 1").nota.mean()
+
+# Agrupando os valor por filmeId e realizando a média da coluna nota
+# Por padrão, no Python usamos "_"
+
+medias_por_filme = notas.groupby("filmeId").mean()["nota"]
+medias_por_filme.head()
+
+# Plotando um histograma com a média dos filmes
+
+medias_por_filme.plot(kind = "hist")
+plt.show()
+
+# Plotando um boxplot com as médias dos filmes
+
+sns.boxplot(medias_por_filme)
+plt.show()
+
+# Pegando as principais métricas
+
+medias_por_filme.describe()
+
+# Plotando o histograma usando o seaborn e alterando o título do gráfico
+
+sns.distplot(medias_por_filme, bins = 10)
+plt.title("Histograma das médias dos filmes")
 plt.show()
