@@ -114,3 +114,55 @@ tmdb.original_language.unique()
 
 #--------------------------------------------------- Data Visualization --------------------------------------
 
+# Criando um df com a soma de cada linguagme
+
+contagem_de_lingua = tmdb["original_language"].value_counts().to_frame()
+contagem_de_lingua.head()
+
+# No caso acima teremos um df com uma coluna, sendo que o index será a lingugem
+# para retirarmos o index da linguagem e acrescentar uma coluna específica para ele
+# devemos fazer o seguinte
+
+contagem_de_lingua = tmdb["original_language"].value_counts().to_frame().reset_index()
+contagem_de_lingua.head()
+
+# Mudando o número das variáveis
+
+contagem_de_lingua.columns = ["original_language", "total"]
+contagem_de_lingua.head()
+
+# Plotando um gráfico de barras
+
+sns.barplot(x = "original_language", y = "total", data = contagem_de_lingua)
+plt.show()
+
+# Plotando o mesmo gráfico, mas sem realizar o cálculos na "mão"
+
+sns.catplot(x = "original_language", kind = "count", data = tmdb)
+plt.show()
+
+# Separando os dados
+
+# Somando individualmente por categoria
+total_por_lingua = tmdb["original_language"].value_counts()
+print(total_por_lingua)
+# Somando o total
+total_geral = total_por_lingua.sum()
+print(total_geral)
+# Somando somente a da lingua ingles
+total_de_ingles = total_por_lingua.loc["en"]
+print(total_de_ingles)
+total_do_resto = total_geral - total_de_ingles
+print(total_do_resto)
+
+# Printando o valor
+
+print(total_de_ingles, total_do_resto)
+
+# Criando um data frame com os dados fornecidos
+
+dados = {
+    "lingua" : ["ingles" , "outros"],
+    "total": [total_de_ingles, total_do_resto]
+}
+dados = pd.DataFrame(dados)
