@@ -100,3 +100,17 @@ medias_por_filme.describe()
 sns.distplot(medias_por_filme, bins = 10)
 plt.title("Histograma das médias dos filmes")
 plt.show()
+
+#----------------------------------------------------- Variáveis ------------------------------------------------
+
+# Carregando um novo arquivo
+
+tmdb = pd.read_csv("C:/Users/mathe/OneDrive/Área de Trabalho/Alura/05 - Formação Ciência de Dados/00 - DS Primeiros Passos/data/tmdb_5000_movies.csv")
+tmdb.head()
+
+# Visualizando os tipos de linguagem
+
+tmdb.original_language.unique()
+
+#--------------------------------------------------- Data Visualization --------------------------------------
+
