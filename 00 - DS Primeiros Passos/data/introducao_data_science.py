@@ -5,7 +5,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt 
 import seaborn as sns
-
+import numpy as np
 
 #---------------------------------------------01 - Dados e Visualização--------------------------------------
 
@@ -195,3 +195,29 @@ plt.show()
 sns.catplot(x = "original_language", kind = "count", data = filmes_sem_lingua_original_em_ingles, aspect = 2,
  palette = "GnBu_d", order = total_por_lingua_de_outros_filmes.index)
 plt.show()
+
+
+#----------------------------------- Dados e Estatística ----------------------------------------------------
+
+notas_do_toy_story = notas.query("filmeId == 1")
+notas_do_jumanji = notas.query("filmeId == 2")
+
+# Printando as duas médias
+
+print("A nota média do Toy Story %.2f" % notas_do_toy_story.nota.mean())
+print("A nota média do Jumanji é %.2f" % notas_do_jumanji.nota.mean())
+
+# Plotando o boxplot
+
+plt.boxplot([notas_do_toy_story.nota, notas_do_jumanji.nota])
+plt.show()
+
+# Plotando o mesmo gráfico, mas com o seaborn 
+
+sns.boxplot(x = "filmeId", y = "nota", data = notas.query("filmeId in [1, 2]"))
+plt.show()
+
+# Visualizando o desvio padrão
+
+print(notas_do_toy_story.nota.std())
+print(notas_do_jumanji.nota.std())
