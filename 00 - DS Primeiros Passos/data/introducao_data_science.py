@@ -160,9 +160,38 @@ print(total_do_resto)
 print(total_de_ingles, total_do_resto)
 
 # Criando um data frame com os dados fornecidos
+# Para rodar o código abaixo eu tenho que selecionar
+# toda a linha de comando
 
 dados = {
     "lingua" : ["ingles" , "outros"],
     "total": [total_de_ingles, total_do_resto]
 }
+
 dados = pd.DataFrame(dados)
+print(dados)
+
+# Plotando o gráfico
+
+sns.barplot(x = "lingua", y = "total", data = dados)
+plt.show()
+
+# Separando e contando os filmes que não são em inglês
+
+total_por_lingua_de_outros_filmes = tmdb.query("original_language != 'en' ").original_language.value_counts()
+total_por_lingua_de_outros_filmes
+
+filmes_sem_lingua_original_em_ingles = tmdb.query("original_language != 'en' ")
+
+# Plotando o gráfico de barras
+
+sns.catplot(x = "original_language", kind = "count", data = filmes_sem_lingua_original_em_ingles)
+plt.show()
+
+#---------------------------------------Continuando com visualização-----------------------------------------
+
+# Plotando o gráfico com algumas alterações nas configuracoes dos grafico
+
+sns.catplot(x = "original_language", kind = "count", data = filmes_sem_lingua_original_em_ingles, aspect = 2,
+ palette = "GnBu_d", order = total_por_lingua_de_outros_filmes.index)
+plt.show()
